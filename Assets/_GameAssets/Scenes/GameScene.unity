@@ -829,7 +829,7 @@ GameObject:
   - component: {fileID: 595661437}
   - component: {fileID: 595661436}
   - component: {fileID: 595661435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1849,15 +1849,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _orientationTransform: {fileID: 1796583697}
-  _movementSpeed: 0
+  _movementSpeed: 30
+  _movementKey: 101
   _jumpKey: 32
-  _jumpForce: 2
+  _jumpForce: 4
   _jumpCooldown: 0.5
   _canJump: 1
   _playerHeight: 1
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  _groundDrag: 5
+  _slideKey: 113
+  _sildeMultiplier: 2
+  _slideDrag: 2
 --- !u!1 &2071527628
 GameObject:
   m_ObjectHideFlags: 0
