@@ -1,8 +1,11 @@
+using System;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+   public event Action OnPlayerJumped;
+
    [Header("References")]
    [SerializeField] private Transform _orientationTransform;
 
@@ -98,7 +101,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
          _ => currentState
       };
 
-      if(newState != currentState)
+      if (newState != currentState)
       {
          _stateController.ChangeState(newState);
       }
@@ -117,7 +120,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
          _ => 1f
       };
 
-       _playerRigidbody.AddForce(_movemnetDirection.normalized * _movementSpeed * forceMultiplier, ForceMode.Force);
+      _playerRigidbody.AddForce(_movemnetDirection.normalized * _movementSpeed * forceMultiplier, ForceMode.Force);
    }
 
    private void SetPlayerDrag()
@@ -144,6 +147,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
    private void SetPlayerJumping()
    {
+      OnPlayerJumped?.Invoke();
       _playerRigidbody.linearVelocity = new Vector3(_playerRigidbody.linearVelocity.x, 0f, _playerRigidbody.linearVelocity.z);
       _playerRigidbody.AddForce(transform.up * _jumpForce, ForceMode.Impulse);
    }
