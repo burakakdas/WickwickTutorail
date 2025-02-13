@@ -56,6 +56,11 @@ public class PlayerController : MonoBehaviour
 
    private void Update()
    {
+      if (GameManager.Instance.GetCurrentGameState() != GameState.Play
+         && GameManager.Instance.GetCurrentGameState() != GameState.Resume)
+      {
+         return;
+      }
       SetInputs();
       SetStates();
       SetPlayerDrag();
@@ -64,6 +69,11 @@ public class PlayerController : MonoBehaviour
 
    private void FixedUpdate()
    {
+      if (GameManager.Instance.GetCurrentGameState() != GameState.Play
+         && GameManager.Instance.GetCurrentGameState() != GameState.Resume)
+      {
+         return;
+      }
       SetPlayerMovement();
    }
 
