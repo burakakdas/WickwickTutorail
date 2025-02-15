@@ -1,10 +1,24 @@
+using System;
 using UnityEngine;
 
 public class HealtManager : MonoBehaviour
 {
+    public static HealtManager Instance { get; private set;}
+
+    public event Action OnPlayerDeath;
+
+    [Header("References")]
+    [SerializeField] private PlayerHealtUI _playerHealtUI;
+
+    [Header("Settings")]
     [SerializeField] private int _maxHealt = 3;
 
     private int _currentHealt;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -16,11 +30,11 @@ public class HealtManager : MonoBehaviour
         if (_currentHealt > 0)
         {
             _currentHealt -= damage;
-            //damage anımations
+            _playerHealtUI.AnimateDamage();
 
             if(_currentHealt <= 0)
             {
-                //player dead
+                OnPlayerDeath?.Invoke();
             }
         }
     }

@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class PlayerİnteractionController : MonoBehaviour
 {
-    [SerializeField] PlayerController _playerComtroller;
+    [SerializeField] private Transform _playerVisualTransform;
+    private PlayerController _playerComtroller;
+    private Rigidbody _playerRigidbody;
 
     private void Awake()
     {
         _playerComtroller = GetComponent<PlayerController>();
+        _playerRigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +25,13 @@ public class PlayerİnteractionController : MonoBehaviour
         if(other.gameObject.TryGetComponent<IBoostable>(out var boostable))
         {
             boostable.Boost(_playerComtroller);
+        }
+    }
+    void OnParticleCollision(GameObject other)
+    {
+        if(other.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GiveDamage(_playerRigidbody, _playerVisualTransform);
         }
     }
 }
