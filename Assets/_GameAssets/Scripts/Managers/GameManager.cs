@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         OnGameStateChanged?.Invoke(gameState);
         _currentGameState = gameState;
-        Debug.Log("Game State: " + gameState);
+        Debug.Log($"Game State: + {gameState}");
     }
 
     public void OnEggCollected()
