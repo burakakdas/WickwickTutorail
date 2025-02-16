@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class CatController : MonoBehaviour
 {
+    public event Action OnCatCatched;
+
     [Header("References")]
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Transform _playerTransform;
@@ -16,7 +19,7 @@ public class CatController : MonoBehaviour
     [SerializeField] private float _waitTime = 2f;
     [SerializeField] private int _maxDestinationAttempts = 10;
     [SerializeField] private float _chaseDistanceThreshold = 1.5f;
-    [SerializeField] private float _chaseDistance =2f;
+    [SerializeField] private float _chaseDistance = 2f;
 
     private NavMeshAgent _catAgent;
     private CatStateController _catStateController;
@@ -35,13 +38,13 @@ public class CatController : MonoBehaviour
     private void Start()
     {
         _initialPosition = transform.position;
-        
+
         SetRandomDestination();
     }
 
     private void Update()
     {
-        if(!_playerController.CanCatChase())
+        if (!_playerController.CanCatChase())
         {
             SetChaseMovement();
         }
@@ -53,15 +56,18 @@ public class CatController : MonoBehaviour
 
     private void SetChaseMovement()
     {
+        _isChasing = true;
+
         Vector3 directionToPlayer = (_playerTransform.position - transform.position).normalized;
         Vector3 offsetPositon = _playerTransform.position - directionToPlayer * _chaseDistanceThreshold;
         _catAgent.SetDestination(offsetPositon);
         _catAgent.speed = _chaseSpeed;
-        _catStateController.ChangeState(CatState.Chasing);
+        _catStateController.ChangeState(CatState.Running);
 
         if (Vector3.Distance(transform.position, _playerTransform.position) <= _chaseDistance && _isChasing)
         {
-            _catStateController.ChangeState(CatState.Chasing);
+            OnCatCatched?.Invoke();
+            _catStateController.ChangeState(CatState.Attacking);
             _isChasing = false;
         }
     }
@@ -123,7 +129,7 @@ public class CatController : MonoBehaviour
         }
         if (!destinationSet)
         {
-            Debug.LogWarning("Failed to find a valid destination");
+            Debug.LogWarning("Failed to find a valid destination" + _maxDestinationAttempts + "attempt");
             _isWaiting = true;
             _timer = _waitTime * 2;
         }
