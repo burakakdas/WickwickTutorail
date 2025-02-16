@@ -37,14 +37,14 @@ public class CatController : MonoBehaviour
 
     private void Start()
     {
+        _catAgent = GetComponent<NavMeshAgent>();
         _initialPosition = transform.position;
-
         SetRandomDestination();
     }
 
     private void Update()
     {
-        if (!_playerController.CanCatChase())
+        if (_playerController.CanCatChase())
         {
             SetChaseMovement();
         }
