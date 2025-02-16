@@ -20,7 +20,7 @@ public class PlayerHealtUI : MonoBehaviour
     {
         _playerHealtTransform = new RectTransform[_playerHealtImages.Length];
 
-        for(int i = 0; i < _playerHealtImages.Length; i++)
+        for (int i = 0; i < _playerHealtImages.Length; i++)
         {
             _playerHealtTransform[i] = _playerHealtImages[i].gameObject.GetComponent<RectTransform>();
         }
@@ -28,9 +28,9 @@ public class PlayerHealtUI : MonoBehaviour
 
     public void AnimateDamage()
     {
-        for(int i = 0; i < _playerHealtImages.Length; i++)
+        for (int i = 0; i < _playerHealtImages.Length; i++)
         {
-            if(_playerHealtImages[i].sprite == _playerHealthySprite)
+            if (_playerHealtImages[i].sprite == _playerHealthySprite)
             {
                 AnimateDamageSprite(_playerHealtImages[i], _playerHealtTransform[i]);
                 break;
@@ -40,7 +40,7 @@ public class PlayerHealtUI : MonoBehaviour
 
     public void AnimateDamageForAll()
     {
-        for(int i = 0; i < _playerHealtImages.Length; i++)
+        for (int i = 0; i < _playerHealtImages.Length; i++)
         {
             AnimateDamageSprite(_playerHealtImages[i], _playerHealtTransform[i]);
         }
