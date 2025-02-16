@@ -3,10 +3,11 @@ using UnityEngine;
 public class FireDamageable : MonoBehaviour, IDamageable
 {
     [SerializeField] private float _force = 10f;
-    public void GiveDamage(Rigidbody playRigidbody, Transform playerVisualTransform)
+    public void GiveDamage(Rigidbody playerRigidbody, Transform playerVisualTransform)
     {
         HealtManager.Instance.Damage(1);
-        playRigidbody.AddForce(-playerVisualTransform.forward * _force, ForceMode.Impulse);
+        playerRigidbody.AddForce(-playerVisualTransform.forward * _force, ForceMode.Impulse);
+        AudioManager.Instance.Play(SoundType.ChickSound);
         Destroy(gameObject);
     }
 }
