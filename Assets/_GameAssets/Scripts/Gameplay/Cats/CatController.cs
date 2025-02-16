@@ -44,7 +44,7 @@ public class CatController : MonoBehaviour
 
     private void Update()
     {
-        if (_playerController.CanCatChase())
+        if (!_playerController.CanCatChase())
         {
             SetChaseMovement();
         }

@@ -54,14 +54,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ChangeGameState(GameState.Play);
+        ChangeGameState(GameState.CutScene);
     }
 
     public void ChangeGameState(GameState gameState)
     {
         OnGameStateChanged?.Invoke(gameState);
         _currentGameState = gameState;
-        Debug.Log($"Game State: + {gameState}");
+        Debug.Log("Game State: " + gameState);
     }
 
     public void OnEggCollected()
