@@ -28,8 +28,8 @@ public class SettingUI : MonoBehaviour
 
     private Image _blackBackgroundImage;
 
-    private bool _isMusicActive;
-    private bool _isSoundActive;
+    private bool _isMusicActive = true;
+    private bool _isSoundActive = true;
 
     private void Awake()
     {
